@@ -44,8 +44,11 @@ function calcoloMedia (arr){
         var dataObject = JSON.parse(request.response);
         console.log(element, dataObject.main.temp);
         arrayMedia.push(dataObject.main.temp);
+        var media_res= arrayMedia.reduce(myFun, 0);
+        document.getElementById('rispostaMedia').innerHTML= 
+        'La media delle temperature è '+ media_res + ' gradi.';
       } else {
-        document.getElementById('risposta').innerText = 'Errore';
+        document.getElementById('rispostaMedia').innerText = 'Errore';
       }
     };
     request.open('GET', URL + element, true);
@@ -53,7 +56,10 @@ function calcoloMedia (arr){
   });
 }
 
-
+//Funzione reduce
+function myFun(total, value, index, array) {
+  return total + (value/array.length);
+}
 
 
 // Funzione collegata ai bottoni
