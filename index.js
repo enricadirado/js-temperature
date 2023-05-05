@@ -4,7 +4,7 @@ import './style.css';
 // Usate questa per qualche prova, poi create un vostro account
 // su www.openweathermap.org e create una API key personale
 const apiKey = 'd0475be3a1967b1b49dfc02c8128001a';
-const leCitta = ['Genova', 'Milano', 'Torino', 'Roma'];
+const leCitta = ['Genova', 'Milano', 'Torino', 'Roma',"Pisa"];
 const URL =
   'https://api.openweathermap.org/data/2.5/weather?APPID=' +
   apiKey +
@@ -14,10 +14,22 @@ leCitta.map((citta) => {
   const btn = document.createElement('button');
   btn.innerHTML = citta;
   btn.addEventListener('click', () => display(btn.innerHTML));
+  btn.addEventListener('mouseover', () => stileOn(btn));
+  btn.addEventListener('mouseout', () => stileOut(btn));
   const item = document.createElement('li');
   item.appendChild(btn);
   document.getElementById('citta').appendChild(item);
 });
+
+//Funzioni collegate ai bottoni per cambiare colore al passaggio del mouse
+function stileOn(btn){
+  btn.style.backgroundColor="lightblue";
+};
+
+function stileOut(btn){
+  btn.style.backgroundColor='buttonface';
+};
+
 // Funzione collegata ai bottoni
 function display(c) {
   const request = new XMLHttpRequest(); // Costruzione dell'oggetto "request"
@@ -32,11 +44,17 @@ function display(c) {
         c +
         ' ci sono ' +
         dataObject.main.temp +
-        ' gradi';
+        ' gradi. La pressione è ' +  //stampa la pressione
+        dataObject.main.pressure +
+        ' hPa.'
+      console.log(dataObject.main);
     } else {
       document.getElementById('risposta').innerText = 'Errore';
     }
   };
+
+
+
   // Applico il metodo "open"
   request.open('GET', URL + c, true);
   // Applico il metodo send (al termine chiamera' il callback "onload")
