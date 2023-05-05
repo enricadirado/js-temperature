@@ -30,6 +30,15 @@ function stileOut(btn){
   btn.style.backgroundColor='buttonface';
 };
 
+//Calcolo media
+const btnMedia = document.getElementById('btnMedia');
+btnMedia.addEventListener('click', () => calcoloMedia());
+
+function calcoloMedia (){
+  
+}
+
+
 // Funzione collegata ai bottoni
 function display(c) {
   const request = new XMLHttpRequest(); // Costruzione dell'oggetto "request"
