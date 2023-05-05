@@ -9,6 +9,25 @@ const URL =
   'https://api.openweathermap.org/data/2.5/weather?APPID=' +
   apiKey +
   '&units=metric&q=';
+
+//Funzioni aggiungi città
+const btnInserisci=document.getElementById('btnIns');
+const btnCittà=document.getElementById('inputIns');
+btnInserisci.addEventListener('click', () => inserisciCittà(btnCittà.value, leCitta));
+
+function inserisciCittà(x, arr){
+  arr.push(x);
+  console.log(arr);
+  const btn = document.createElement('button');
+  btn.innerHTML = x;
+  btn.addEventListener('click', () => display(btn.innerHTML));
+  btn.addEventListener('mouseover', () => stileOn(btn));
+  btn.addEventListener('mouseout', () => stileOut(btn));
+  const item = document.createElement('li');
+  item.appendChild(btn);
+  document.getElementById('citta').appendChild(item);
+}
+
 // Crea una lista di bottoni con i nomi delle citta
 leCitta.map((citta) => {
   const btn = document.createElement('button');
@@ -91,3 +110,5 @@ function display(c) {
   request.send();
   console.log(new Date().toISOString() + ': Finito');
 }
+
+
