@@ -32,11 +32,28 @@ function stileOut(btn){
 
 //Calcolo media
 const btnMedia = document.getElementById('btnMedia');
-btnMedia.addEventListener('click', () => calcoloMedia());
+const arrayMedia = [];
+btnMedia.addEventListener('click', () => calcoloMedia(leCitta));
 
-function calcoloMedia (){
-  
+function calcoloMedia (arr){
+  console.log('primo array', arr);
+  arr.forEach(function(element) {
+    const request = new XMLHttpRequest();
+    request.onload = () => {
+      if (request.status === 200) {
+        var dataObject = JSON.parse(request.response);
+        console.log(element, dataObject.main.temp);
+        arrayMedia.push(dataObject.main.temp);
+      } else {
+        document.getElementById('risposta').innerText = 'Errore';
+      }
+    };
+    request.open('GET', URL + element, true);
+    request.send();
+  });
 }
+
+
 
 
 // Funzione collegata ai bottoni
@@ -61,8 +78,6 @@ function display(c) {
       document.getElementById('risposta').innerText = 'Errore';
     }
   };
-
-
 
   // Applico il metodo "open"
   request.open('GET', URL + c, true);
